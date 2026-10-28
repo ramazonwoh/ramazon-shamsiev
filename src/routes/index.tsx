@@ -30,7 +30,7 @@ function Reveal({ children, className = "" }: { children: ReactNode; className?:
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const io = new IntersectionObserver(([e]) => e.isIntersecting && (el.classList.add("in"), io.disconnect()), { threshold: 0.15 });
+    const io = new IntersectionObserver(([e]) => e?.isIntersecting && (el.classList.add("in"), io.disconnect()), { threshold: 0.15 });
     io.observe(el);
     return () => io.disconnect();
   }, []);
@@ -90,7 +90,7 @@ function Counter({ value, suffix }: { value: number; suffix: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   useEffect(() => {
     const io = new IntersectionObserver(([e]) => {
-      if (!e.isIntersecting) return;
+      if (!e?.isIntersecting) return;
       io.disconnect();
       let c = 0;
       const id = setInterval(() => { c++; setN(Math.round((value * c) / 40)); if (c >= 40) clearInterval(id); }, 30);
@@ -222,7 +222,7 @@ function Skill({ name, level }: { name: string; level: number }) {
   const [w, setW] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const io = new IntersectionObserver(([e]) => e.isIntersecting && setW(level));
+    const io = new IntersectionObserver(([e]) => e?.isIntersecting && setW(level));
     ref.current && io.observe(ref.current);
     return () => io.disconnect();
   }, [level]);
@@ -358,7 +358,7 @@ function Testimonials() {
   const [i, setI] = useState(0);
   const n = site.testimonials.length;
   useEffect(() => { const t = setInterval(() => setI((v) => (v + 1) % n), 5000); return () => clearInterval(t); }, [n, i]);
-  const t = site.testimonials[i];
+  const t = site.testimonials[i]!;
   return (
     <Section id="testimonials" label="testimonials" title={<>Kind <span className="text-gradient">words</span></>}>
       <div className="glass mx-auto max-w-2xl rounded-3xl p-8 text-center">
