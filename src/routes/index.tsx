@@ -74,7 +74,7 @@ function Typing() {
   const [txt, setTxt] = useState("");
   const [del, setDel] = useState(false);
   useEffect(() => {
-    const word = site.typing[i % site.typing.length];
+    const word = site.typing[i % site.typing.length]!;
     const t = setTimeout(() => {
       if (!del && txt === word) return setDel(true);
       if (del && txt === "") { setDel(false); return setI(i + 1); }
